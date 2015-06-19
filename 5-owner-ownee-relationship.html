@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Owner ownee</title>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
+  <body>
+
+  <div id="app"></div>
+
+  <script type="text/jsx">
+    var App = React.createClass({
+      // Default property values
+      getDefaultProps: function() {
+        return {
+          txt: 'Default props text!',
+          cat: 0
+        }
+      },
+
+      // Initial state
+      getInitialState: function() {
+        return {
+          txt: 'this is my default state txt'
+        }
+      },
+
+      // Custom Method
+      updateText: function(event) {
+        this.setState({txt:event.target.value})
+      },
+
+      // Set property types
+      propTypes: {
+        txt:React.PropTypes.string,
+        cat:React.PropTypes.number.isRequired //if not defined throws a warning in console
+      },
+
+      // Render the template in DOM
+      render: function() {
+        return (
+          <div>
+            <Widget txt={this.state.txt} update={this.updateText} />
+            <Widget txt={this.state.txt} update={this.updateText} />
+            <Widget txt={this.state.txt} update={this.updateText} />
+          </div>
+        )
+      }
+    });
+
+    // New Component
+     // notice we have changed state.txt => props.txt
+    var Widget = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <input type="text" onChange={this.props.update} placeholder="Type in some words" />
+            <h1>{this.props.txt}</h1>
+          </div>
+        )
+      }
+    });
+
+    // Render component with props
+    React.render(<App cat={5} />, document.getElementById('app'));
+  </script>
+  </body>
+</html>
